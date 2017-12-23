@@ -1,3 +1,4 @@
+start = <<ENDL
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>VCI Bags - Aerographic Papers Private Limited, Nagpur</title>
+    <title>{{title}} - Aerographic Papers Private Limited, Nagpur</title>
 
     <meta name="twitter:card" content="summary" />
 
@@ -17,8 +18,8 @@
 
     <meta name="twitter:title" content="Aerographic Papers Private Limited, Nagpur - Manufacturer of VCI Paper" />
     <meta property="og:title" content="Aerographic Papers Private Limited, Nagpur - Manufacturer of VCI Paper" />
-    <meta property="og:url" content="http://aerographicpapers.com/vci-bag.html" />
-    <link rel="canonical" href="http://aerographicpapers.com/vci-bag.html">
+    <meta property="og:url" content="http://aerographicpapers.com/{{title_slug}}.html" />
+    <link rel="canonical" href="http://aerographicpapers.com/{{title_slug}}.html">
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
@@ -47,71 +48,50 @@
       <div class="container">
         <div class="row">
           <center class="col-xs-12">
-            <h2>VCI Bags</h2>
+            <h2>{{title}}</h2>
           </center>
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <p class="lead text-center">
-              Leading Manufacturer of VCI Bags and VCI Seaworthy Film Bag from Nagpur.
-            </p>
+            {{description}}
             <hr>
           </div>
         </div>
-        <div class="row indiv-item" id="vci-bags">
+ENDL
+
+mid = <<ENDL
+        <div class="row indiv-item" id="{{slug}}">
           <div class="col-xs-12 media">
             <div class="media-left media-middle">
               <a href="#">
-                <img src="images/vci-bags-500x500.jpg">
+                <img src="images/{{image_filename}}">
               </a>
             </div>
             <div class="media-body">
               <h3>
-                VCI Bags
+                {{title}}
                 <small>
                   <br/>
-                  Approximate Price: Rs 180 / kg
+                  Approximate Price: {{price}}
                 </small>
               </h3>
               <p>
-                Our company is well known in the market for the manufacturing, exporting and supplying of a high quality of VCI Bags . These VCI Bags products are manufactured using superior grade raw material with the help of advanced technology in compliance with the set international quality standards. In order to deliver the defect free range, these VCI Bags are tested under the supervision of our experienced professionals on several parameters against to ensure the flawlessness
+                {{description}}
               </p>
-              <h5>Advantages</h5>
-              <ul>
-                <li>Excellent anti rust effects and high cost performance</li>
-                <li>Clean, harmless and non-toxic thus safe to environment</li>
-                <li>Transparent and aesthetic</li>
-              </ul>
+              {% if advantages %}
+                <h5>Advantages</h5>
+                <ul>
+                  {% for adv in advantages %}
+                    <li>{{adv}}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
             </div>
           </div>
         </div>
-        <div class="row indiv-item" id="vci-seaworthy-film-bag">
-          <div class="col-xs-12 media">
-            <div class="media-left media-middle">
-              <a href="#">
-                <img src="images/vci-bags-500x500.jpg">
-              </a>
-            </div>
-            <div class="media-body">
-              <h3>
-                VCI Seaworthy  Film Bag
-                <small>
-                  <br/>
-                  Approximate Price: Rs 160 / kg
-                </small>
-              </h3>
-              <p>
-                Our company is well known in the market for the manufacturing, exporting and supplying of a high quality of VCI Seaworthy Poly Film Bag sprawling all over the nation. These products are manufactured using superior grade raw material with the help of advanced technology in compliance with the set international quality standards. In order to deliver the defect free range, these are tested under the supervision of our experienced professionals on several parameters against to ensure the flawlessness and are available at industry leading prices.
-              </p>
-              <h5>Advantages</h5>
-              <ul>
-                <li>Excellent anti rust effects and high cost performance</li>
-                <li>Clean, harmless and non-toxic thus safe to environment</li>
-                <li>Transparent and aesthetic</li>
-              </ul>
-            </div>
-          </div>
-        </div>
+ENDL
+
+foot = <<ENDL
 
         <hr>
       </div>
@@ -132,3 +112,33 @@
     </script>
   </body>
 </html>
+ENDL
+
+require 'json'
+require 'liquid'
+
+def stringify_keys hash
+  hash.map do |k, v|
+    [k.to_s, v]
+  end.to_h
+end
+
+data = JSON.parse(File.read('data.json'))
+
+data.each do |key, file_data|
+  options = stringify_keys(
+    title_slug: key,
+    title: file_data['title'],
+    description: file_data['description']
+  )
+  output = Liquid::Template.parse(start).render(options)
+  file_data['items'].each do |item|
+    output += Liquid::Template.parse(mid).render(item)
+  end
+
+  output += Liquid::Template.parse(foot).render()
+
+  File.open(key + ".html", "w") do |f|
+    f.write(output)
+  end
+end

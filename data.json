@@ -1,0 +1,17 @@
+{
+  "vci-packaging": {
+    "title" : " VCI Packaging",
+    "description": "",
+    "items": [
+      {
+        "image_filename":"",
+        "title": "",
+        "price": "",
+        "description": "",
+        "slug": "",
+        "advantages": [
+        ]
+      }
+    ]
+  }
+}
