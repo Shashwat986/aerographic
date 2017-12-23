@@ -1,0 +1,104 @@
+.submenu.dropdown-menu > li > a {
+  padding-left: 10px;
+}
+
+.small.nav > li > a {
+  padding: 5px 10px;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.bg-grad {
+  background:
+    linear-gradient(to bottom right, rgba(213,186,161, 0.7), rgba(255,244,206, 0.5)),
+    radial-gradient(rgba(229,202,177, 0.5) 0%, rgba(255,244,206, 0.5) 60%, rgba(228,182,113, 0.7) 120%);
+}
+
+.bg-gray {
+  background-color: #f7f7f9;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+
+.carousel-fixed-height {
+}
+
+.carousel-fixed-height > .item {
+  padding-top: 100%;
+}
+
+.carousel-fixed-height > .item img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+  max-height: 100%;
+}
+
+.justify {
+  text-align: justify;
+}
+
+.thumbnail {
+  position: relative;
+  height: 100%;
+}
+
+.thumbnail-parent {
+  padding-bottom: 40px;
+}
+
+.thumbnail > .thumbnail-img {
+  padding-top: 100%;
+  display: block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.thumbnail > .btn-thumbnail-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+}
+
+.thumbnail .thumbnail-list > li {
+  padding: 10px 10px;
+  text-align: center;
+  position: relative;
+}
+
+.thumbnail .thumbnail-list > li::after {
+  position: absolute;
+  content: "";
+  bottom: 0;
+  height: 1px;
+  left: 35%;
+  right: 35%;
+  border-bottom: 1px solid #eee;
+}
+
+.thumbnail .caption a {
+  color: #333;
+  display: block;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+}
