@@ -172,3 +172,15 @@ ul.thumbnail-list > li::after {
   width: 40%;
   padding: 5px 0;
 }
+
+.padding-top {
+  padding-top: 20px;
+}
+
+.margin-bottom {
+  margin-bottom: 30px;
+}
+
+.fw-400 {
+  font-weight: 400;
+}
