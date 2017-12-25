@@ -184,3 +184,20 @@ ul.thumbnail-list > li::after {
 .fw-400 {
   font-weight: 400;
 }
+
+
+#navbar .submenu > li > a {
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+#navbar .submenu h4 {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+img.sm-thumb {
+  margin-right: 10px;
+  max-height: 100px;
+  max-width: 100px;
+}
